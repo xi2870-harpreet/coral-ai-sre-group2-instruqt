@@ -21,6 +21,19 @@ resource "vm" "k8s" {
     memory = 16384
   }
 
+  # FINDING: the default root disk on a Labs 2.0 vm (booted from a Docker
+  # image, not a real cloud VM image) is far too small for k3s + the
+  # container images this track pulls (shop pods, Prometheus, coral, claude).
+  # Confirmed via journalctl: k3s failed extracting its own binary with
+  # "no space left on device". The original 1.0 track ran on a real GCP VM
+  # with a proper boot disk, so this never came up there. Mounting a real
+  # disk at /var/lib/rancher (where k3s stores its binary, data, and pulled
+  # images) routes all of that off the tiny root disk.
+  disk {
+    destination = "/var/lib/rancher"
+    size        = 20
+  }
+
   network {
     id = resource.network.main.meta.id
   }
