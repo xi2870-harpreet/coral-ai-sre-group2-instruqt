@@ -61,8 +61,14 @@ PS4='+$0[$LINENO]+'
 ##  coral-ai-sre — track-level setup (host: k8s)           ##
 #############################################################
 
-echo "Step 1/8 Waiting for bootstrap, installing k3s..."
-until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]; do sleep 1; done
+echo "Step 1/8 Installing k3s..."
+# FINDING: the original track waited here for a 1.0-specific bootstrap
+# marker (/opt/instruqt/bootstrap/host-bootstrap-completed), written by the
+# 1.0 host provisioning process before user scripts ran. Labs 2.0's
+# startup_script only fires once the vm resource is booted and its agent is
+# responsive, so that marker is never created here - the wait loop hung
+# forever with no error (a silent "Creating sandbox" stall, no timeout, no
+# log signal). Removed as a 2.0-forced deviation.
 
 # Ubuntu 24.04 host (glibc 2.39 - required by the coral binary, which is
 # built against x86_64-unknown-linux-gnu 2.39; no musl build exists).
