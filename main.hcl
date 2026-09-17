@@ -31,12 +31,15 @@ resource "lab" "main" {
         reference = resource.page.agent_online
       }
 
-      page "the_incident" {
-        reference = resource.page.the_incident
-      }
-
+      # TEMP: swapped with read_only_by_design to cross-check whether the
+      # blank-instructions/setup-not-firing bug is specific to this page or
+      # affects any page with a `setup` block. Revert order after testing.
       page "read_only_by_design" {
         reference = resource.page.read_only_by_design
+      }
+
+      page "the_incident" {
+        reference = resource.page.the_incident
       }
     }
   }
