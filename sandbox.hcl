@@ -34,6 +34,17 @@ resource "vm" "k8s" {
     size        = 20
   }
 
+  # FINDING (cont.): the k3s fix above only covers /var/lib/rancher - Claude
+  # Code installs to ~/.local/share and ~/.cache (i.e. /root), which is still
+  # on the tiny root disk. Confirmed via a run that got through steps 1-6
+  # (k3s, shop app, Prometheus, data seed, Coral all succeeded) and only
+  # failed at step 7 with the same ENOSPC, now under /root/.cache/claude/...
+  # Mounting a disk at /root covers both directories Claude Code writes to.
+  disk {
+    destination = "/root"
+    size        = 10
+  }
+
   network {
     id = resource.network.main.meta.id
   }
