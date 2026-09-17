@@ -11,3 +11,5 @@ You can use this as a minimal starting point for developing labs.
 In the Skeleton Lab we have chosen to follow certain standards when placing our files. 
 This structure follows the best practises we have found while creating content, 
 but it is possible to deviate from the naming conventions demonstrated here.
+
+Testing the VCS sync
