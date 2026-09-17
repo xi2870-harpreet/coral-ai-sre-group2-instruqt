@@ -102,7 +102,12 @@ CLAUDE_INSTALL_PID=$!
 MANIFESTS_PID=$!
 
 if ! command -v k3s >/dev/null 2>&1; then
-  curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 || { echo "SETUP FAILED: k3s install" >&2; exit 1; }
+  curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 || {
+    echo "SETUP FAILED: k3s install" >&2
+    systemctl status k3s.service --no-pager -l >&2 || true
+    journalctl -xeu k3s.service --no-pager -n 200 >&2 || true
+    exit 1
+  }
 fi
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
