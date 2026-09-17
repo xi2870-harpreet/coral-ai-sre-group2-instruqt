@@ -5,9 +5,15 @@ resource "network" "main" {
 
 # VM running k3s, the 3-service shop, Prometheus, Coral and Claude Code.
 # Matches the original config.yml: ubuntu-2404, 4 CPU, 16GB memory.
+# FINDING: the original track.yml used a raw GCP image name
+# (ubuntu-os-cloud/ubuntu-2404-lts-amd64). Labs 2.0's vm resource expects a
+# Docker image reference instead (see docs.labs.instruqt.com/reference/
+# sandbox/compute/vm) - "could not create sandbox: fetch version manifest
+# ...ubuntu-os-cloud/ubuntu-2404-lts-amd64:latest: not found" until changed
+# to a real Docker Hub reference.
 resource "vm" "k8s" {
   image {
-    name = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"
+    name = "ubuntu:24.04"
   }
 
   resources {
