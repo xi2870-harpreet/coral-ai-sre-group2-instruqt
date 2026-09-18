@@ -13,6 +13,10 @@ resource "task" "meet_the_stack" {
       script          = "scripts/task/meet_the_stack/check.sh"
       failure_message = "The environment isn't fully up yet, or hasn't been toured. Give it a few seconds and try again."
     }
+
+    solve {
+      script = "scripts/task/meet_the_stack/solve.sh"
+    }
   }
 }
 
@@ -31,6 +35,10 @@ resource "task" "one_sql_connection" {
       script          = "scripts/task/one_sql_connection/check.sh"
       failure_message = "Run the Step 4 cross-source JOIN in the Terminal - it saves its output to /root/answers/first-join.txt."
     }
+
+    solve {
+      script = "scripts/task/one_sql_connection/solve.sh"
+    }
   }
 }
 
@@ -48,6 +56,10 @@ resource "task" "agent_online" {
     check {
       script          = "scripts/task/agent_online/check.sh"
       failure_message = "Claude Code doesn't know about Coral yet, or the Step 3 marker hasn't been recorded."
+    }
+
+    solve {
+      script = "scripts/task/agent_online/solve.sh"
     }
   }
 }
@@ -71,6 +83,10 @@ resource "task" "the_incident" {
       script          = "scripts/task/the_incident/check.sh"
       failure_message = "No correct answer recorded yet. Investigate with Coral, then run: submit \"<root-cause-service>\""
     }
+
+    solve {
+      script = "scripts/task/the_incident/solve.sh"
+    }
   }
 }
 
@@ -92,6 +108,10 @@ resource "task" "read_only_by_design" {
     check {
       script          = "scripts/task/read_only_by_design/check.sh"
       failure_message = "Either the mutation attempt or the shopapi source is missing - see the instructions for both steps."
+    }
+
+    solve {
+      script = "scripts/task/read_only_by_design/solve.sh"
     }
   }
 }
