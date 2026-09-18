@@ -16,6 +16,10 @@ resource "task" "meet_the_stack" {
 
     solve {
       script = "scripts/task/meet_the_stack/solve.sh"
+
+      config {
+        timeout = "210s"
+      }
     }
   }
 }
@@ -38,6 +42,10 @@ resource "task" "one_sql_connection" {
 
     solve {
       script = "scripts/task/one_sql_connection/solve.sh"
+
+      config {
+        timeout = "120s"
+      }
     }
   }
 }
@@ -60,6 +68,10 @@ resource "task" "agent_online" {
 
     solve {
       script = "scripts/task/agent_online/solve.sh"
+
+      config {
+        timeout = "60s"
+      }
     }
   }
 }
@@ -86,6 +98,10 @@ resource "task" "the_incident" {
 
     solve {
       script = "scripts/task/the_incident/solve.sh"
+
+      config {
+        timeout = "9m"
+      }
     }
   }
 }
@@ -112,6 +128,10 @@ resource "task" "read_only_by_design" {
 
     solve {
       script = "scripts/task/read_only_by_design/solve.sh"
+
+      config {
+        timeout = "4m"
+      }
     }
   }
 }
